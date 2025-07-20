@@ -20,10 +20,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank (message = "Поле Имя обязателньо для заполнения")
+    @NotBlank (message = "Поле Имя обязательно для заполнения")
     private String firstName;
 
-    @NotNull
+    @NotNull (message = "Поле возраст обязательно для заполнения")
     @Min(value = 0, message = "возраст не может быть отрицательным")
     private Integer age;
 

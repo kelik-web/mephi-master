@@ -21,7 +21,8 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok (users);
     }
 
     @PostMapping("/users")
@@ -39,7 +40,7 @@ public class UserController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity
                     .badRequest()
-                    .body("Invalid country name: " + country);
+                    .body("Некорректное название страны:" + country);
         }
     }
 }
