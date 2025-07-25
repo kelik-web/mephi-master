@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "Получить список всех пользователей",
-               responses = {@ApiResponse (responseCode = "200", description =  "Список пользователей успешно получен")
+    @Operation(summary = "Получить список всех пользователей")
+    @ApiResponses(value = {@ApiResponse (responseCode = "200", description =  "Список пользователей успешно получен")
     })
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -33,9 +34,9 @@ public class UserController {
         return ResponseEntity.ok (users);
     }
 
-    @Operation(summary = "Добавить нового пользователя",
-                responses = { @ApiResponse(responseCode = "201", description = "Пользователь успешно создан"),
-                        @ApiResponse(responseCode = "400", description = "Ошибка валидации")
+    @Operation(summary = "Добавить нового пользователя")
+    @ApiResponses (value = {@ApiResponse(responseCode = "201", description = "Пользователь успешно создан"),
+                            @ApiResponse(responseCode = "400", description = "Ошибка валидации")
     })
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@Valid @RequestBody UserCreationDto dto) {
@@ -45,7 +46,8 @@ public class UserController {
     }
 
     @Operation (summary = "Получить список пользователей не из заданной страны",
-                responses = {@ApiResponse (responseCode = "200", description = "Пользователи успешно отфильтрованы"),
+                description = "Извлечь из списка пользователей не из определенной страны. Доступные страны: Russia, USA, Brazil, Armenia, Poland")
+    @ApiResponses (value = {@ApiResponse (responseCode = "200", description = "Пользователи успешно отфильтрованы"),
                             @ApiResponse (responseCode = "400", description = "Некорректное название страны: Invalid_Country")
     })
     @GetMapping("/additional-info")
